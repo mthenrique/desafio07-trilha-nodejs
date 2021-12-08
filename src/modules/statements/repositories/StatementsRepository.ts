@@ -29,6 +29,18 @@ export class StatementsRepository implements IStatementsRepository {
     return this.repository.save(statement);
   }
 
+  async createTransfer({user_id, sender_id, amount, description, type}: ICreateStatementDTO): Promise<Statement> {
+    const statement = this.repository.create({
+      user_id,
+      sender_id,
+      amount,
+      description,
+      type
+    });
+
+    return this.repository.save(statement);
+  }
+
   async findStatementOperation({ statement_id, user_id }: IGetStatementOperationDTO): Promise<Statement | undefined> {
     return this.repository.findOne(statement_id, {
       where: { user_id }
